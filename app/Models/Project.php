@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use App\Models\Admin\Category;
+use App\Models\Admin\Technology;
 
 class Project extends Model
 {
@@ -29,5 +30,9 @@ class Project extends Model
     public static function generateSlug($title)
     {
         return Str::slug($title, '-');
+    }
+
+    public function technologies(){
+        return $this->belongsToMany(Technology::class);
     }
 }

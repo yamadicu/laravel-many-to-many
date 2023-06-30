@@ -7,4 +7,12 @@
 @section('content')
     <h1>Progetto: {{$project->title}}</h1>
     <h3>{{$project->slug}}</h3>
+
+    @if($project->category)
+        <div>{{$project->category->name}}</div>
+    @endif
+
+    @foreach ($project->technologies as $item)
+        <div>{{$elem->name}}</div>
+    @endforeach
 @endsection
