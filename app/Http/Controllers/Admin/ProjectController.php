@@ -8,7 +8,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Admin\Category;
-
+use App\Models\Admin\Technology;
 use App\Models\Project;
 
 class ProjectController extends Controller
@@ -25,7 +25,8 @@ class ProjectController extends Controller
      */
     public function create(){
         $categories = Category::all();
-        return view('pages.create', compact('categories'));
+        $technologies = Technology::all(); 
+        return view('pages.create', compact('categories', 'technologies'));
 
     }
 
@@ -44,13 +45,16 @@ class ProjectController extends Controller
         $form_data['slug'] = $slug;
 
         if($request->hasFile('cover_image')){
-            $path = Storage::disk('public')->put('post_images', $request->cover_image);
+            $path = Storage::disk('public')->put('project_images', $request->cover_image);
             $form_data['cover_image'] = $path;
         }
 
-        $new_project = new Project();
-        $new_project->fill($form_data);
-        $new_project->save();
+        $new_project = Project::create($form_data);
+
+        if($request->has('technologies')){
+            $new_project->technologies()->attach($request->technologies);
+        }
+
 
         return redirect()->route('pages.index'); 
     }

@@ -12,7 +12,7 @@
         <div>{{$project->category->name}}</div>
     @endif
 
-    @foreach ($project->technologies as $item)
+    @foreach ($project->technologies as $elem)
         <div>{{$elem->name}}</div>
     @endforeach
 @endsection

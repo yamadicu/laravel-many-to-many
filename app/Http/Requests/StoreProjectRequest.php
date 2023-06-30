@@ -25,10 +25,11 @@ class StoreProjectRequest extends FormRequest
     {
         return [
             
-            'title'=>'required|unique:posts|max:255',
+            'title'=>'required|unique:project|max:255',
             'content'=>'nullable',
             'cover_image'=>'nullable|image',
-            'category_id'=>'nullable|exists:categories,id'
+            'category_id'=>'nullable|exists:categories,id',
+            'technologies'=> 'exists:technologies,id'
         ];
     }
 }

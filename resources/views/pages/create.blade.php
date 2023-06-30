@@ -44,8 +44,27 @@
                     </div>
                 @enderror
             </div>
+            
+            <div class="form-group">
 
-            <button class="btn btn-primary">crea il post</button>
+                @foreach($technologies as $elem)
+                    <div class="form-check">
+
+                        <input class="form-check-input" 
+                               type="checkbox"
+                               name="technologies[]"
+                               value="{{$elem->id}}" 
+                               id="project-check{{$elem->id}}">
+
+                        <label class="form-check-label" for="project-check{{$elem->id}}">
+                            {{$elem->name}}
+                        </label>
+                    </div>
+                @endforeach
+
+            </div>
+
+            <button class="btn btn-primary">crea il progetto</button>
         </form>
 
     </div>
