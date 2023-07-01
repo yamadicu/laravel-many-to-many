@@ -7,7 +7,7 @@
 @section('content')
     <h1>crea il tuo probetto</h1>
 
-    <div class="container">
+    <div class = "container">
 
         <form action="{{route('pages.store')}}" method="POST" enctype="multipart/form-data">
             @csrf

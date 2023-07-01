@@ -11,7 +11,7 @@ class UpdateProjectRequest extends FormRequest
      * Determine if the user is authorized to make this request.
      *
      * @return bool
-     */
+     */ 
     public function authorize()
     {
         return true;
@@ -25,8 +25,11 @@ class UpdateProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required|max:255', Rule::unique('project')->ignore($this->project)],
-            'content' => ['nullable']
+            'title' => ['required', 'max:255', Rule::unique('project')->ignore($this->project)],
+            'content' => ['nullable'],
+            'cover_image'  => ['nullable', 'image', 'max:6000'],
+            'technologies' => ['exists:technologies,id']
         ];
     }
+
 }

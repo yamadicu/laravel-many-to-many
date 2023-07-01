@@ -50,11 +50,11 @@ class ProjectController extends Controller
         }
 
         $new_project = Project::create($form_data);
-
+        
         if($request->has('technologies')){
             $new_project->technologies()->attach($request->technologies);
         }
-
+        
 
         return redirect()->route('pages.index'); 
     }
@@ -80,7 +80,8 @@ class ProjectController extends Controller
     {
         $project = Project::findOrFail($id);
         $categories = Category::all();
-        return view('pages.edit', compact('project', 'categories'));
+        $technologies = Technology::all();
+        return view('pages.edit', compact('project', 'categories', 'technologies'));
     }
 
     /**
@@ -101,6 +102,10 @@ class ProjectController extends Controller
             $project = Project::findOrFail($id);
 
             $project->update($form_data);
+
+            if($request->has('technologies')){
+                $project->technologies()->sync($request->technologies);
+            }
 
             return redirect()->route('pages.index')->with('success', 'modifica avvenuta con successo');
     }
