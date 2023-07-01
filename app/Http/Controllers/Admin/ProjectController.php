@@ -119,6 +119,10 @@ class ProjectController extends Controller
     public function destroy($id)
     {
         $project = Project::findOrFail($id);
+        $project->technologies()->sync([]);
+        if($project->cover_image){
+            Storage::delete($project->cover_image);
+        }
         $project->delete();
         return redirect()-> route('pages.index');
     }
